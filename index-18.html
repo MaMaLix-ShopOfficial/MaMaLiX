@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6d28d9">
+  <meta name="description" content="MaMaLiX - سفارش ساخت سایت به صورت لینک یا فایل مستقیم">
+  <title>MaMaLiX | ساخت سایت</title>
+  <style>
+    :root{
+      --bg:#090511;
+      --bg-2:#12091f;
+      --surface:rgba(255,255,255,.065);
+      --surface-strong:rgba(255,255,255,.095);
+      --border:rgba(196,181,253,.18);
+      --purple:#7c3aed;
+      --purple-2:#a855f7;
+      --purple-3:#c084fc;
+      --text:#faf7ff;
+      --muted:#c4b8d8;
+      --success:#34d399;
+      --warning:#fbbf24;
+      --danger:#fb7185;
+      --shadow:0 24px 80px rgba(76,29,149,.24);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Tahoma,"Vazirmatn","Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 10%,rgba(124,58,237,.24),transparent 30%),
+        radial-gradient(circle at 85% 20%,rgba(168,85,247,.16),transparent 28%),
+        linear-gradient(145deg,var(--bg),var(--bg-2) 55%,#0b0612);
+      line-height:1.8;
+      overflow-x:hidden;
+    }
+    body:before{
+      content:"";
+      position:fixed;inset:0;pointer-events:none;opacity:.45;
+      background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(to bottom,black,transparent 85%);
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .container{width:min(1120px,calc(100% - 32px));margin-inline:auto}
+    header{
+      position:sticky;top:0;z-index:20;
+      background:rgba(9,5,17,.72);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(196,181,253,.1);
+    }
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{
+      font-size:1.35rem;font-weight:900;letter-spacing:.5px;
+      background:linear-gradient(90deg,#fff,var(--purple-3));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .nav-link{
+      border:1px solid var(--border);background:rgba(255,255,255,.045);
+      color:var(--text);padding:9px 14px;border-radius:12px;cursor:pointer;
+      transition:.2s ease;
+    }
+    .nav-link:hover{background:rgba(124,58,237,.18);border-color:rgba(192,132,252,.45);transform:translateY(-1px)}
+    main{position:relative}
+    .hero{padding:88px 0 62px;text-align:center}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 13px;border-radius:999px;
+      border:1px solid rgba(192,132,252,.24);
+      background:rgba(124,58,237,.11);color:#dec9ff;font-size:.85rem;
+    }
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--purple-3);box-shadow:0 0 14px var(--purple-2)}
+    h1{font-size:clamp(2.4rem,7vw,5.3rem);line-height:1.05;margin:20px 0 18px;letter-spacing:-2px}
+    .gradient{background:linear-gradient(100deg,#fff 10%,#ddd6fe 42%,#c084fc 75%,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p{max-width:650px;margin:0 auto;color:var(--muted);font-size:1.05rem}
+    .hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .btn{
+      min-height:48px;padding:11px 20px;border-radius:14px;border:1px solid transparent;
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;
+      font-weight:800;
+    }
+    .btn-primary{color:white;background:linear-gradient(135deg,#6d28d9,#9333ea);box-shadow:0 12px 28px rgba(124,58,237,.28)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(124,58,237,.38)}
+    .btn-secondary{color:#eee5ff;background:rgba(255,255,255,.055);border-color:var(--border)}
+    .btn-secondary:hover{transform:translateY(-2px);background:rgba(124,58,237,.13);border-color:rgba(192,132,252,.4)}
+    .btn:active{transform:translateY(0) scale(.98)}
+    section{padding:38px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
+    .section-head h2{margin:0;font-size:1.8rem}
+    .section-head p{margin:5px 0 0;color:var(--muted)}
+    .services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .service-card{
+      position:relative;overflow:hidden;display:flex;flex-direction:column;
+      min-height:350px;padding:28px;border-radius:var(--radius);
+      background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035));
+      border:1px solid var(--border);box-shadow:var(--shadow);
+      transition:.25s ease;cursor:pointer;
+    }
+    .service-card:before{
+      content:"";position:absolute;width:180px;height:180px;left:-70px;top:-80px;
+      background:rgba(168,85,247,.2);filter:blur(35px);border-radius:50%;
+    }
+    .service-card:hover{transform:translateY(-5px);border-color:rgba(192,132,252,.45);box-shadow:0 28px 90px rgba(76,29,149,.34)}
+    .service-icon{
+      width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+      background:rgba(124,58,237,.18);border:1px solid rgba(192,132,252,.2);
+      color:#dfc7ff;font-weight:900;font-size:1.1rem;
+    }
+    .service-card h3{font-size:1.45rem;margin:24px 0 8px}
+    .service-card p{color:var(--muted);margin:0;max-width:470px}
+    .price{font-size:1.7rem;font-weight:900;margin:22px 0 24px;color:#fff}
+    .price small{font-size:.85rem;color:var(--purple-3);font-weight:700}
+    .service-card .btn{margin-top:auto;width:100%}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .feature{
+      padding:22px;border-radius:20px;background:rgba(255,255,255,.045);
+      border:1px solid rgba(196,181,253,.11)
+    }
+    .feature strong{display:block;margin-bottom:6px}.feature span{color:var(--muted);font-size:.92rem}
+    .orders-panel{
+      margin-top:18px;padding:26px;border-radius:var(--radius);
+      background:rgba(255,255,255,.055);border:1px solid var(--border)
+    }
+    .empty{text-align:center;color:var(--muted);padding:25px 10px}
+    .order-list{display:grid;gap:12px}
+    .order-item{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:17px;border-radius:17px;background:rgba(8,4,15,.35);border:1px solid rgba(196,181,253,.1)
+    }
+    .order-main strong{display:block}.order-main span{color:var(--muted);font-size:.86rem}
+    .status{padding:6px 10px;border-radius:999px;font-size:.78rem;color:#fde68a;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);white-space:nowrap}
+    footer{padding:45px 0 35px;color:var(--muted);text-align:center}
+    .footer-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .modal-backdrop{
+      position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+      padding:16px;background:rgba(4,2,8,.76);backdrop-filter:blur(10px)
+    }
+    .modal-backdrop.open{display:flex}
+    .modal{
+      width:min(620px,100%);max-height:92vh;overflow:auto;
+      border-radius:26px;background:#120a1d;border:1px solid rgba(196,181,253,.22);
+      box-shadow:0 35px 100px rgba(0,0,0,.5);padding:26px;
+      animation:pop .22s ease;
+    }
+    @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+    .modal-head h2{margin:0;font-size:1.4rem}
+    .close{
+      width:40px;height:40px;border-radius:12px;border:1px solid var(--border);
+      background:rgba(255,255,255,.05);color:white;cursor:pointer;font-size:1.2rem
+    }
+    .summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+    .summary-box{padding:16px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid rgba(196,181,253,.1)}
+    .summary-box label{display:block;color:var(--muted);font-size:.8rem;margin-bottom:4px}.summary-box strong{font-size:1rem}
+    .payment-box{
+      padding:20px;border-radius:20px;background:linear-gradient(145deg,rgba(124,58,237,.14),rgba(255,255,255,.035));
+      border:1px solid rgba(192,132,252,.18)
+    }
+    .card-number{
+      direction:ltr;text-align:center;font-family:monospace;letter-spacing:2px;
+      font-size:clamp(1rem,4vw,1.45rem);padding:16px 8px;margin:12px 0;
+      border-radius:14px;background:rgba(0,0,0,.2);border:1px dashed rgba(196,181,253,.22)
+    }
+    .notice{color:var(--muted);font-size:.9rem;margin:15px 0 20px}
+    .success-note{padding:16px;border-radius:16px;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);color:#c9fbe8;margin:16px 0}
+    .toast{
+      position:fixed;z-index:100;bottom:22px;left:50%;transform:translate(-50%,20px);
+      opacity:0;pointer-events:none;padding:12px 18px;border-radius:13px;
+      background:#1a1027;border:1px solid rgba(192,132,252,.3);box-shadow:var(--shadow);transition:.25s ease
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:760px){
+      .nav{height:68px}.nav-actions .nav-link:first-child{display:none}
+      .hero{padding:66px 0 45px}h1{letter-spacing:-1px}
+      .services,.feature-grid{grid-template-columns:1fr}
+      .service-card{min-height:310px}
+      .section-head{display:block}
+      .section-head p{margin-top:4px}
+      .summary{grid-template-columns:1fr}
+      .order-item{align-items:flex-start;flex-direction:column}
+      .order-item .status{align-self:flex-start}
+      .container{width:min(100% - 22px,1120px)}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#top" aria-label="MaMaLiX">MaMaLiX</a>
+    <nav class="nav-actions" aria-label="ناوبری">
+      <a class="nav-link" href="#services">خدمات</a>
+      <a class="nav-link" href="#orders">سفارش من</a>
+      <a class="nav-link" href="https://rubika.ir/MaMaLiMC" target="_blank" rel="noopener noreferrer">آیدی من</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="container">
+      <span class="badge"><span class="dot"></span> ساخت سایت، ساده و سریع</span>
+      <h1><span class="gradient">MaMaLiX</span><br>سایتت را حرفه‌ای تحویل بگیر</h1>
+      <p>ساخت سایت با دو روش تحویل؛ انتخاب سرویس، پرداخت کارت‌به‌کارت و ارسال رسید برای پشتیبانی، بدون نیاز به ثبت‌نام.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#services">مشاهده خدمات</a>
+        <a class="btn btn-secondary" href="https://rubika.ir/MaMaLiMC" target="_blank" rel="noopener noreferrer">آیدی من</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>خدمات MaMaLiX</h2>
+          <p>سرویس موردنظرت را انتخاب کن تا مستقیماً وارد مرحله پرداخت شوی.</p>
+        </div>
+      </div>
+      <div class="services">
+        <article class="service-card" data-service="link" tabindex="0" role="button" aria-label="سفارش سایت لینکی">
+          <div class="service-icon">01</div>
+          <h3>سایت لینکی</h3>
+          <p>ساخت سایت و تحویل آن به صورت لینک، مناسب برای استفاده سریع و اشتراک‌گذاری آسان.</p>
+          <div class="price">15,000 <small>تومان</small></div>
+          <button class="btn btn-primary order-btn" data-service="link">سفارش سایت لینکی</button>
+        </article>
+
+        <article class="service-card" data-service="file" tabindex="0" role="button" aria-label="سفارش سایت فایل مستقیم">
+          <div class="service-icon">02</div>
+          <h3>سایت فایل مستقیم</h3>
+          <p>ساخت سایت و تحویل فایل‌های سایت، مناسب برای نگهداری و انتقال مستقل پروژه.</p>
+          <div class="price">10,000 <small>تومان</small></div>
+          <button class="btn btn-primary order-btn" data-service="file">سفارش سایت فایل مستقیم</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="feature-grid">
+        <div class="feature"><strong>بدون ثبت‌نام</strong><span>برای سفارش، حساب کاربری یا شماره موبایل لازم نیست.</span></div>
+        <div class="feature"><strong>پرداخت کارت‌به‌کارت</strong><span>اطلاعات کارت فروشنده را می‌بینی و رسید را برای پشتیبانی می‌فرستی.</span></div>
+        <div class="feature"><strong>ساده و سریع</strong><span>کل فرایند در همین Frontend و داخل مرورگر انجام می‌شود.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="orders">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>سفارش من</h2>
+          <p>سفارش‌های ثبت‌شده فقط در همین مرورگر نگهداری می‌شوند.</p>
+        </div>
+        <button class="btn btn-secondary" id="clearOrders" type="button">پاک کردن سفارش‌های مرورگر</button>
+      </div>
+      <div class="orders-panel">
+        <div id="orderList" class="order-list"></div>
+        <div id="emptyOrders" class="empty">هنوز سفارشی در این مرورگر ثبت نشده است.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a class="btn btn-secondary" href="https://rubika.ir/MaMaLiMC" target="_blank" rel="noopener noreferrer">آیدی من</a>
+      <a class="btn btn-secondary" href="#services">خدمات</a>
+    </div>
+    <div>MaMaLiX — ساخت سایت با تحویل ساده و مستقیم</div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="paymentModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+    <div class="modal-head">
+      <h2 id="paymentTitle">پرداخت سفارش</h2>
+      <button class="close" id="closeModal" type="button" aria-label="بستن">×</button>
+    </div>
+
+    <div class="summary">
+      <div class="summary-box"><label>نوع سرویس</label><strong id="selectedService">—</strong></div>
+      <div class="summary-box"><label>مبلغ قابل پرداخت</label><strong id="selectedPrice">—</strong></div>
+    </div>
+
+    <div class="payment-box">
+      <strong>پرداخت کارت‌به‌کارت</strong>
+      <p class="notice">شماره کارت فروشنده را کپی کنید و مبلغ سفارش را کارت‌به‌کارت واریز کنید.</p>
+      <div class="card-number" id="cardNumber">—</div>
+      <div class="summary-box" style="margin-bottom:12px;text-align:center">
+        <label>به نام</label>
+        <strong>امیر عباس رجبی چاپشلو</strong>
+      </div>
+      <button class="btn btn-primary" id="copyCard" type="button" style="width:100%">کپی شماره کارت</button>
+      <div class="success-note">
+        پس از پرداخت، تصویر رسید پرداخت را برای پشتیبانی ارسال کنید تا سفارش شما بررسی و تحویل داده شود.
+      </div>
+      <a class="btn btn-secondary" href="https://rubika.ir/MaMaLiMC" target="_blank" rel="noopener noreferrer" style="width:100%">آیدی من</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  // شماره کارت واقعی فروشنده را فقط در این متغیر جایگزین کنید.
+  const CARD_NUMBER = "6219861451411721";
+
+  const SERVICES = {
+    link: { name: "سایت لینکی", price: 15000 },
+    file: { name: "سایت فایل مستقیم", price: 10000 }
+  };
+
+  const STORAGE_KEY = "mamalix_orders_v1";
+  const RUBIKA_URL = "https://rubika.ir/MaMaLiMC";
+
+  const modal = document.getElementById("paymentModal");
+  const selectedService = document.getElementById("selectedService");
+  const selectedPrice = document.getElementById("selectedPrice");
+  const cardNumber = document.getElementById("cardNumber");
+  const orderList = document.getElementById("orderList");
+  const emptyOrders = document.getElementById("emptyOrders");
+  const toast = document.getElementById("toast");
+
+  let activeService = null;
+
+  function formatPrice(value) {
+    return new Intl.NumberFormat("fa-IR").format(value) + " تومان";
+  }
+
+  function formatDate(dateString) {
+    try {
+      return new Intl.DateTimeFormat("fa-IR", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }).format(new Date(dateString));
+    } catch {
+      return dateString;
+    }
+  }
+
+  function formatCard(value) {
+    if (!value || value === "شماره کارت اینجا") return value;
+    const digits = String(value).replace(/\D/g, "");
+    return digits.replace(/(.{4})/g, "$1 ").trim();
+  }
+
+  function getOrders() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function saveOrders(orders) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+  }
+
+  function createOrder(serviceKey) {
+    const service = SERVICES[serviceKey];
+    const order = {
+      id: "MLX-" + Date.now(),
+      service: service.name,
+      price: service.price,
+      date: new Date().toISOString(),
+      status: "در انتظار پرداخت"
+    };
+    const orders = getOrders();
+    orders.unshift(order);
+    saveOrders(orders);
+    return order;
+  }
+
+  function renderOrders() {
+    const orders = getOrders();
+    orderList.innerHTML = "";
+    emptyOrders.style.display = orders.length ? "none" : "block";
+
+    orders.forEach(order => {
+      const item = document.createElement("div");
+      item.className = "order-item";
+      item.innerHTML = `
+        <div class="order-main">
+          <strong>${escapeHTML(order.service)}</strong>
+          <span>${formatPrice(order.price)} · ${escapeHTML(formatDate(order.date))}</span>
+        </div>
+        <span class="status">${escapeHTML(order.status)}</span>
+      `;
+      orderList.appendChild(item);
+    });
+  }
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+    }[char]));
+  }
+
+  function openPayment(serviceKey) {
+    if (!SERVICES[serviceKey]) return;
+    activeService = serviceKey;
+    const service = SERVICES[serviceKey];
+
+    createOrder(serviceKey);
+    selectedService.textContent = service.name;
+    selectedPrice.textContent = formatPrice(service.price);
+    cardNumber.textContent = formatCard(CARD_NUMBER);
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    renderOrders();
+  }
+
+  function closePayment() {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    activeService = null;
+  }
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+    window.clearTimeout(showToast.timer);
+    showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+  }
+
+  document.querySelectorAll(".order-btn").forEach(button => {
+    button.addEventListener("click", event => {
+      event.stopPropagation();
+      openPayment(button.dataset.service);
+    });
+  });
+
+  document.querySelectorAll(".service-card").forEach(card => {
+    card.addEventListener("click", event => {
+      if (event.target.closest("button")) return;
+      openPayment(card.dataset.service);
+    });
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openPayment(card.dataset.service);
+      }
+    });
+  });
+
+  document.getElementById("closeModal").addEventListener("click", closePayment);
+
+  modal.addEventListener("click", event => {
+    if (event.target === modal) closePayment();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && modal.classList.contains("open")) closePayment();
+  });
+
+  document.getElementById("copyCard").addEventListener("click", async () => {
+    if (!CARD_NUMBER || CARD_NUMBER === "شماره کارت اینجا") {
+      showToast("ابتدا شماره کارت فروشنده را در CARD_NUMBER قرار دهید.");
+      return;
+    }
+    const cleanCard = String(CARD_NUMBER).replace(/\s/g, "");
+    try {
+      await navigator.clipboard.writeText(cleanCard);
+      showToast("شماره کارت کپی شد.");
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = cleanCard;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        showToast("شماره کارت کپی شد.");
+      } catch {
+        showToast("کپی خودکار در این مرورگر ممکن نیست.");
+      }
+      textarea.remove();
+    }
+  });
+
+  document.getElementById("clearOrders").addEventListener("click", () => {
+    const orders = getOrders();
+    if (!orders.length) {
+      showToast("سفارشی برای پاک کردن وجود ندارد.");
+      return;
+    }
+    if (confirm("همه سفارش‌های ذخیره‌شده در این مرورگر پاک شوند؟")) {
+      localStorage.removeItem(STORAGE_KEY);
+      renderOrders();
+      showToast("سفارش‌های مرورگر پاک شدند.");
+    }
+  });
+
+  // بررسی اولیه لینک‌های «آیدی من»
+  document.querySelectorAll('a').forEach(link => {
+    if (link.textContent.trim() === "آیدی من") {
+      link.href = RUBIKA_URL;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    }
+  });
+
+  renderOrders();
+</script>
+</body>
+</html>
