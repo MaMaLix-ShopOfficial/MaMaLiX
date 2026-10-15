@@ -1,117 +1,149 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b0905" />
-  <title>نسل جدید MaMaLiX | نسخه 1.0.1</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
-    :root {
-      --gold: #f4c95d;
-      --gold-light: #fff0b0;
-      --gold-deep: #a87516;
-      --bg: #080705;
-      --muted: #b8ad91;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0; min-height: 100vh; color: #fff8e5; font-family: 'Vazirmatn', Tahoma, sans-serif;
-      background:
-        radial-gradient(ellipse at 50% 42%, rgba(160,111,20,.18), transparent 43%),
-        radial-gradient(circle at 12% 12%, rgba(244,201,93,.08), transparent 25%),
-        var(--bg);
-      overflow-x: hidden;
-    }
-    body::before {
-      content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .12;
-      background-image: linear-gradient(rgba(244,201,93,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(244,201,93,.15) 1px, transparent 1px);
-      background-size: 56px 56px; mask-image: linear-gradient(to bottom, black, transparent 85%);
-    }
-    .noise { position: fixed; inset: 0; pointer-events: none; opacity: .035; z-index: 1; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E"); }
-    .page { position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column; }
-    header { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 28px 0; display: flex; align-items: center; justify-content: space-between; }
-    .brand { display: flex; gap: 11px; align-items: center; font-weight: 900; letter-spacing: 1px; direction: ltr; }
-    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(244,201,93,.65); border-radius: 12px; color: var(--gold-light); box-shadow: inset 0 0 18px rgba(244,201,93,.1), 0 0 22px rgba(244,201,93,.08); }
-    .brand-name { font-size: 19px; background: linear-gradient(120deg,#fff3bc,#d9a52d 55%,#fff0a0); color: transparent; background-clip: text; }
-    .top-label { color: var(--muted); font-size: 12px; border: 1px solid rgba(244,201,93,.2); border-radius: 999px; padding: 8px 13px; }
-    main { flex: 1; display: grid; place-items: center; padding: 35px 20px 70px; }
-    .hero { width: min(900px, 100%); text-align: center; position: relative; }
-    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--gold); border: 1px solid rgba(244,201,93,.28); background: rgba(244,201,93,.055); border-radius: 999px; padding: 9px 16px; font-size: 12px; letter-spacing: .5px; }
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #f4c95d; box-shadow: 0 0 12px #f4c95d; animation: pulse 1.8s infinite; }
-    .emblem { width: 136px; height: 136px; margin: 34px auto 25px; position: relative; display: grid; place-items: center; }
-    .emblem::before, .emblem::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(244,201,93,.55); border-radius: 34px; transform: rotate(45deg); box-shadow: 0 0 35px rgba(244,201,93,.08), inset 0 0 30px rgba(244,201,93,.04); }
-    .emblem::after { inset: 12px; border-color: rgba(244,201,93,.23); border-radius: 27px; transform: rotate(0deg); }
-    .emblem span { z-index: 1; font-size: 42px; font-weight: 900; color: var(--gold-light); text-shadow: 0 0 30px rgba(244,201,93,.45); }
-    h1 { margin: 0; font-size: clamp(34px, 6vw, 68px); font-weight: 900; line-height: 1.45; letter-spacing: -.8px; }
-    h1 .gold { display: block; direction: ltr; background: linear-gradient(110deg,#fff4bd 10%,#f4c95d 45%,#a87516 70%,#ffe99b 90%); background-size: 220% auto; color: transparent; background-clip: text; animation: shine 6s linear infinite; }
-    .subtitle { margin: 14px auto 0; color: #c5baa0; font-size: clamp(14px, 2vw, 17px); line-height: 2; max-width: 550px; }
-    .version-card { display: inline-flex; align-items: center; gap: 15px; margin-top: 32px; padding: 13px 19px; border: 1px solid rgba(244,201,93,.32); border-radius: 16px; background: linear-gradient(135deg,rgba(244,201,93,.09),rgba(255,255,255,.018)); box-shadow: 0 12px 45px rgba(0,0,0,.22); }
-    .version-icon { width: 37px; height: 37px; display: grid; place-items: center; border-radius: 11px; background: rgba(244,201,93,.13); color: var(--gold); }
-    .version-text { text-align: right; }
-    .version-text small { display: block; color: #a99c7e; font-size: 11px; margin-bottom: 2px; }
-    .version-text strong { direction: ltr; display: block; font-size: 15px; color: var(--gold-light); letter-spacing: 0; }
-    .divider { width: 90px; height: 1px; margin: 36px auto 22px; background: linear-gradient(90deg,transparent,var(--gold-deep),transparent); }
-    .bottom-note { font-size: 12px; color: #897e64; }
-    .bottom-note span { color: var(--gold); }
-    footer { text-align: center; padding: 20px; color: #72684f; font-size: 11px; border-top: 1px solid rgba(244,201,93,.1); }
-    .spark { position: absolute; width: 4px; height: 4px; background: var(--gold-light); border-radius: 50%; box-shadow: 0 0 12px 2px rgba(244,201,93,.6); animation: float 5s ease-in-out infinite; }
-    .s1 { top: 19%; left: 12%; } .s2 { top: 44%; right: 8%; animation-delay: -2s; } .s3 { bottom: 19%; left: 20%; animation-delay: -3s; } .s4 { bottom: 25%; right: 17%; animation-delay: -1s; }
-    @keyframes pulse { 50% { opacity: .4; box-shadow: 0 0 3px #f4c95d; } }
-    @keyframes shine { to { background-position: 220% center; } }
-    @keyframes float { 0%,100% { transform: translateY(0); opacity: .35; } 50% { transform: translateY(-13px); opacity: 1; } }
-    @media (max-width: 560px) {
-      header { width: calc(100% - 28px); padding: 20px 0; }
-      .top-label { font-size: 10px; padding: 7px 10px; }
-      .brand-name { font-size: 16px; }
-      .emblem { width: 112px; height: 112px; margin-top: 30px; }
-      .emblem span { font-size: 35px; }
-      main { padding-top: 22px; }
-      .spark { opacity: .5; }
-    }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100a20">
+<meta name="description" content="MaMaLiX — انتخاب و سفارش خدمات طراحی سایت">
+<title>MaMaLiX | خدمات طراحی سایت</title>
+<style>
+:root{--bg:#090611;--panel:rgba(255,255,255,.075);--panel2:rgba(255,255,255,.11);--line:rgba(221,204,255,.16);--purple:#9b5cff;--pink:#e879f9;--text:#fbf8ff;--muted:#bdb2d1;--green:#6ee7b7;--shadow:0 22px 70px #0006}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);font-family:Tahoma,Vazirmatn,"Segoe UI",sans-serif;line-height:1.8;background:radial-gradient(ellipse at 12% 0%,#48207855,transparent 35%),radial-gradient(ellipse at 90% 30%,#6d28d933,transparent 32%),linear-gradient(145deg,#090611,#130a20 65%,#090611);padding-bottom:110px}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:linear-gradient(#fff1 1px,transparent 1px),linear-gradient(90deg,#fff1 1px,transparent 1px);background-size:40px 40px;mask-image:linear-gradient(#000,transparent 85%)}
+button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}a{color:inherit;text-decoration:none}.container{width:min(1080px,calc(100% - 32px));margin:auto}
+header{position:sticky;top:0;z-index:10;background:#0b0715b8;border-bottom:1px solid #ffffff12;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.topbar{height:72px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:1.4rem;font-weight:900;letter-spacing:.4px;background:linear-gradient(90deg,#fff,#d7b8ff,#efb4ff);color:transparent;background-clip:text}.top-pill{border:1px solid var(--line);background:#ffffff08;border-radius:999px;padding:7px 13px;color:var(--muted);font-size:.8rem}
+main{position:relative}.page{display:none;animation:pageIn .38s ease both}.page.active{display:block}@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero{padding:54px 0 28px;text-align:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #c084fc44;background:#a855f71b;padding:7px 14px;border-radius:99px;color:#e4ccff;font-size:.86rem}.dot{width:7px;height:7px;border-radius:50%;background:#d8b4fe;box-shadow:0 0 15px #c084fc}
+h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.35;margin:18px 0 10px;letter-spacing:-1px}.gradient{background:linear-gradient(100deg,#fff,#ddd6fe 45%,#c084fc);color:transparent;background-clip:text}.intro{color:var(--muted);max-width:650px;margin:0 auto 24px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:24px 0}.section-head h2{margin:0;font-size:1.55rem}.section-head p{margin:5px 0 0;color:var(--muted);font-size:.92rem}
+.services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-bottom:28px}.service-card{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:22px;border-radius:24px;background:linear-gradient(145deg,#ffffff12,#ffffff05);border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,border-color .25s,background .25s;min-height:225px}.service-card:before{content:"";position:absolute;width:150px;height:150px;left:-65px;top:-75px;border-radius:50%;background:#a855f72b;filter:blur(25px);pointer-events:none}.service-card:hover{transform:translateY(-4px);border-color:#c084fc70;background:linear-gradient(145deg,#ffffff19,#ffffff07)}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.service-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:15px;background:#a855f725;border:1px solid #c084fc35;font-size:1.25rem}.tag{font-size:.75rem;color:#e9d5ff;border:1px solid #c084fc35;border-radius:999px;padding:3px 10px;background:#a855f714}.service-card h3{font-size:1.08rem;margin:17px 0 5px}.service-card p{color:var(--muted);font-size:.88rem;margin:0 0 16px}.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}.price{font-weight:900;font-size:1.25rem;white-space:nowrap}.price small{font-size:.78rem;color:#d8b4fe}.btn{border:1px solid transparent;min-height:43px;padding:9px 15px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-weight:800;transition:transform .2s,filter .2s,background .2s}.btn:active{transform:scale(.97)}.btn-primary{color:#fff;background:linear-gradient(135deg,#7c3aed,#a855f7);box-shadow:0 9px 24px #7c3aed35}.btn-primary:hover{filter:brightness(1.12);transform:translateY(-1px)}.btn-glass{background:#ffffff0b;border-color:var(--line);color:var(--text)}.btn-glass:hover{background:#ffffff15}
+.panel{border:1px solid var(--line);background:linear-gradient(145deg,#ffffff10,#ffffff05);border-radius:25px;padding:22px;box-shadow:var(--shadow);margin:20px 0}.empty{text-align:center;padding:45px 12px;color:var(--muted)}.empty .empty-icon{font-size:2.5rem;display:block;margin-bottom:8px}.cart-list{display:grid;gap:12px}.cart-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;padding:16px;border-radius:18px;border:1px solid #ffffff13;background:#08051055}.item-name{font-weight:800}.item-price{font-size:.86rem;color:var(--muted)}.quantity{display:flex;align-items:center;gap:10px;direction:ltr}.qty-btn{width:35px;height:35px;border:1px solid #c084fc50;border-radius:12px;background:#a855f720;color:white;cursor:pointer;font-size:1.2rem;transition:.2s}.qty-btn:hover{background:#a855f748}.qty-number{min-width:35px;text-align:center;font-weight:900}.cart-summary{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;margin-top:20px}.total-label{color:var(--muted);font-size:.9rem}.total-price{font-size:1.45rem;font-weight:900}.checkout{min-width:190px}.profile-mark{width:88px;height:88px;border-radius:30px;margin:8px auto 16px;display:grid;place-items:center;font-size:2.5rem;background:linear-gradient(145deg,#a855f74a,#ffffff0a);border:1px solid #d8b4fe50;box-shadow:0 12px 45px #9333ea25}.profile{text-align:center;padding:28px 18px}.profile h2{margin:0}.profile p{color:var(--muted);margin:8px auto 20px;max-width:480px}.profile-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;text-align:right;margin-top:22px}.info-box{border:1px solid #ffffff13;background:#ffffff08;padding:15px;border-radius:16px}.info-box span{display:block;color:var(--muted);font-size:.8rem}.info-box strong{display:block;margin-top:4px}
+.bottom-nav-wrap{position:fixed;z-index:30;bottom:max(14px,env(safe-area-inset-bottom));left:0;right:0;display:flex;justify-content:center;padding:0 14px;pointer-events:none}.bottom-nav{pointer-events:auto;position:relative;width:min(460px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:7px;border-radius:25px;border:1px solid #ffffff2b;background:linear-gradient(135deg,#ffffff20,#ffffff09);box-shadow:0 18px 60px #0008,inset 0 1px #ffffff25;backdrop-filter:blur(32px) saturate(170%);-webkit-backdrop-filter:blur(32px) saturate(170%)}.nav-indicator{position:absolute;top:7px;bottom:7px;right:7px;width:calc((100% - 24px)/3);border-radius:19px;background:linear-gradient(135deg,#a855f755,#7c3aed32);border:1px solid #d8b4fe4a;box-shadow:inset 0 1px #ffffff25,0 4px 18px #9333ea24;transition:transform .38s cubic-bezier(.2,.8,.2,1);pointer-events:none}.bottom-link{position:relative;z-index:1;min-height:57px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:0;border-radius:18px;background:transparent;color:#c8bdd8;cursor:pointer;transition:color .25s,transform .25s}.bottom-link .nav-icon{font-size:1.25rem;line-height:1.3;transition:transform .3s}.bottom-link .nav-label{font-size:.75rem;font-weight:700}.bottom-link.active{color:#fff}.bottom-link.active .nav-icon{transform:translateY(-2px) scale(1.08);filter:drop-shadow(0 0 8px #d8b4fe88)}.bottom-link:active{transform:scale(.95)}.toast{position:fixed;z-index:50;left:50%;bottom:100px;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#211532eF;border:1px solid #c084fc50;border-radius:14px;padding:10px 17px;box-shadow:var(--shadow);transition:.25s;white-space:nowrap;max-width:calc(100% - 30px)}.toast.show{opacity:1;transform:translate(-50%,0)}footer{text-align:center;color:#857b97;font-size:.8rem;padding:20px 0 12px}
+.profile-tools{display:grid;gap:14px;text-align:right}.field{width:100%;padding:12px 14px;border-radius:13px;border:1px solid var(--line);background:#08051088;color:var(--text);font:inherit;outline:none}.field:focus{border-color:var(--purple)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid var(--purple);background:#241432}.avatar-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.subhead{font-size:1.2rem;margin:0 0 12px}.order-card{padding:15px;border:1px solid var(--line);border-radius:16px;background:#08051055;margin:10px 0;text-align:right}.order-card textarea{min-height:80px;resize:vertical}.product-reviews{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}.review-list{display:grid;gap:8px;margin:10px 0}.product-review{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#ffffff07;text-align:right}.product-review p{margin:5px 0 0;overflow-wrap:anywhere}.review-form{display:grid;gap:8px;margin-top:10px}.review-form textarea{min-height:68px;resize:vertical}.small-muted{font-size:.85rem;color:var(--muted)}.settings-color{width:100%;height:54px;border:0;background:transparent;cursor:pointer}.section-actions{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.danger{border-color:#fb718555;color:#fecaca}.auth-hidden{display:none!important}
+
+/* Dynamic accent system: every interactive and decorative accent follows the chosen color. */
+:root{--accent-rgb:155,92,255;--accent-soft:rgba(var(--accent-rgb),.14);--accent-mid:rgba(var(--accent-rgb),.27);--accent-border:rgba(var(--accent-rgb),.48);--accent-glow:rgba(var(--accent-rgb),.28);--accent-deep:color-mix(in srgb,var(--purple) 72%,#171025)}
+body{background:radial-gradient(ellipse at 12% 0%,rgba(var(--accent-rgb),.22),transparent 38%),radial-gradient(ellipse at 90% 30%,rgba(var(--accent-rgb),.14),transparent 34%),linear-gradient(145deg,#090611,#100a1a 65%,#090611)}
+header{border-bottom-color:rgba(var(--accent-rgb),.22);box-shadow:0 8px 35px rgba(var(--accent-rgb),.06)}
+.brand{background-image:linear-gradient(90deg,#fff,color-mix(in srgb,var(--purple) 45%,white),color-mix(in srgb,var(--purple) 25%,white))}
+.top-pill,.eyebrow{border-color:var(--accent-border);background:var(--accent-soft);color:color-mix(in srgb,var(--purple) 40%,white)}
+.dot{background:var(--purple);box-shadow:0 0 16px var(--purple)}
+.gradient{background-image:linear-gradient(100deg,#fff,color-mix(in srgb,var(--purple) 28%,white) 48%,var(--purple))}
+.service-card,.panel{border-color:var(--line);box-shadow:0 22px 70px rgba(var(--accent-rgb),.09),0 12px 38px #0005,inset 0 1px rgba(255,255,255,.04)}
+.service-card:before{background:rgba(var(--accent-rgb),.28)}
+.service-card:hover{border-color:var(--accent-border);box-shadow:0 20px 55px rgba(var(--accent-rgb),.16),0 12px 35px #0005}
+.service-icon,.tag,.profile-mark{border-color:var(--accent-border);background:linear-gradient(145deg,rgba(var(--accent-rgb),.23),rgba(var(--accent-rgb),.07));color:color-mix(in srgb,var(--purple) 30%,white)}
+.tag{color:color-mix(in srgb,var(--purple) 38%,white)}
+.price small{color:var(--purple)}
+.btn-primary{background:linear-gradient(135deg,color-mix(in srgb,var(--purple) 76%,#171025),var(--purple));box-shadow:0 9px 24px rgba(var(--accent-rgb),.3),inset 0 1px rgba(255,255,255,.22);border:1px solid rgba(var(--accent-rgb),.62)}
+.btn-primary:hover{box-shadow:0 12px 30px rgba(var(--accent-rgb),.42)}
+.btn-glass,.field,.order-card,.info-box{border-color:var(--line)}
+.btn-glass:hover,.field:focus{background-color:var(--accent-soft);border-color:var(--purple);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.1)}
+.field:focus{background-color:rgba(8,5,16,.7)}
+.qty-btn{border-color:var(--accent-border);background:var(--accent-soft);box-shadow:inset 0 1px rgba(255,255,255,.08)}
+.qty-btn:hover{background:rgba(var(--accent-rgb),.3);box-shadow:0 5px 18px rgba(var(--accent-rgb),.15)}
+.cart-item,.order-card{background:linear-gradient(135deg,rgba(var(--accent-rgb),.08),rgba(8,5,16,.45))}
+.profile-mark{box-shadow:0 12px 45px rgba(var(--accent-rgb),.2)}
+.avatar{border-color:var(--purple);box-shadow:0 0 22px rgba(var(--accent-rgb),.2)}
+.bottom-nav{border-color:rgba(var(--accent-rgb),.32);box-shadow:0 18px 60px #0008,0 0 28px rgba(var(--accent-rgb),.12),inset 0 1px rgba(255,255,255,.25)}
+.nav-indicator{background:linear-gradient(135deg,rgba(var(--accent-rgb),.42),rgba(var(--accent-rgb),.16));border-color:var(--accent-border);box-shadow:inset 0 1px rgba(255,255,255,.25),0 4px 22px rgba(var(--accent-rgb),.2)}
+.bottom-link.active .nav-icon{filter:drop-shadow(0 0 8px rgba(var(--accent-rgb),.8))}
+.toast{border-color:var(--accent-border);box-shadow:0 12px 40px #0008,0 0 24px rgba(var(--accent-rgb),.15)}
+.settings-color{accent-color:var(--purple)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+
+@media(max-width:650px){.container{width:calc(100% - 22px)}.topbar{height:62px}.hero{padding:38px 0 16px}h1{font-size:clamp(1.8rem,8vw,2.65rem)}.services{grid-template-columns:1fr;gap:12px}.service-card{padding:19px;min-height:205px}.section-head{display:block}.panel{padding:14px}.cart-item{grid-template-columns:minmax(0,1fr);gap:12px}.quantity{justify-content:flex-start}.cart-summary{align-items:stretch}.checkout{width:100%}.profile-info{grid-template-columns:1fr}.bottom-nav{border-radius:22px}.bottom-link{min-height:53px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="page">
-    <header>
-      <div class="brand"><div class="brand-mark">M</div><span class="brand-name">MaMaLiX</span></div>
-      <div class="top-label">تجربه‌ای تازه در راه است</div>
-    </header>
-    <main>
-      <section class="hero" aria-labelledby="headline">
-        <i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i><i class="spark s4"></i>
-        <div class="eyebrow"><span class="live-dot"></span> به‌روزرسانی جدید</div>
-        <div class="emblem" aria-hidden="true"><span>M</span></div>
-        <h1 id="headline">نسل جدید <span class="gold">MaMaLiX</span></h1>
-        <p class="subtitle">شروعی تازه، ظاهری متفاوت و تجربه‌ای درخشان‌تر.<br>به نسخه جدید Mamalix خوش آمدید.</p>
-        <div class="version-card">
-          <div class="version-icon">✦</div>
-          <div class="version-text"><small>وضعیت به‌روزرسانی سایت</small><strong>در حال آپدیت به ورژن ۱.۰.۱</strong></div>
-        </div>
-        <div class="divider"></div>
-        <div class="bottom-note">ساخته‌شده برای یک تجربه <span>طلایی</span></div>
-      </section>
-    </main>
-    <footer>© <span id="year"></span> MaMaLiX — تمامی حقوق محفوظ است</footer>
-  </div>
-  <script>
-    // سال جاری به‌صورت خودکار به‌روزرسانی می‌شود.
-    document.getElementById('year').textContent = new Date().getFullYear();
+<header><div class="container topbar"><a class="brand" href="#" aria-label="MaMaLiX">MaMaLiX</a><span class="top-pill">✦ طراحی سایت، ساده و سریع</span></div></header>
+<main class="container">
+  <section class="page active" id="page-services" data-page="services">
+    <div class="hero">
+      <span class="eyebrow"><span class="dot"></span> به MaMaLiX خوش آمدید</span>
+      <h1><span class="gradient">خوش آمدید</span><br>نوع سفارش خود را مشخص کنید</h1>
+      
+    </div>
+    <div class="section-head"><div><h2>خدمات و قیمت‌ها</h2></div></div>
+    <div class="services" id="servicesList"></div>
+    <footer>MaMaLiX — سفارش خدمات طراحی سایت</footer>
+  </section>
+  <section class="page" id="page-cart" data-page="cart">
+    <div class="hero"><span class="eyebrow"><span class="dot"></span> سفارش‌های انتخاب‌شده</span><h1><span class="gradient">سبد خرید</span></h1><p class="intro">تعداد هر محصول</p></div>
+    <div class="panel"><div id="cartList" class="cart-list"></div><div id="cartEmpty" class="empty"><span class="empty-icon">🛒</span>سبد خریدت هنوز خالی است.<br><button class="btn btn-primary" style="margin-top:16px" data-go="services">مشاهده خدمات</button></div><div id="cartSummary" class="cart-summary" hidden><div><div class="total-label">مجموع مبلغ سفارش</div><div class="total-price" id="totalPrice">۰ تومان</div></div><a class="btn btn-primary checkout" id="checkoutLink" href="https://rubika.ir/MaMaLiMC" target="_blank" rel="noopener noreferrer">ثبت سفارش در روبیکا <span>↗</span></a></div></div>
+    <footer>مبلغ نهایی بر اساس تعداد محصولات انتخاب‌شده محاسبه می‌شود.</footer>
+  </section>
+  <section class="page" id="page-profile" data-page="profile">
+    <div class="hero"><span class="eyebrow"><span class="dot"></span> فضای شخصی شما</span><h1><span class="gradient">پروفایل</span></h1><p class="intro">حساب کاربری، سفارش‌ها، نظرات و تنظیمات شخصی.</p></div>
+    <div class="panel profile-tools" id="authPanel">
+      <h2 class="subhead" id="authTitle">ساخت حساب یا ورود</h2>
+      <p class="small-muted">حساب در همین مرورگر ذخیره می‌شود؛ با پاک‌کردن داده‌های مرورگر ممکن است اطلاعات از بین برود.</p>
+      <div class="form-grid"><input class="field" id="authName" placeholder="نام نمایشی" autocomplete="nickname"><input class="field" id="authEmail" placeholder="نام کاربری" autocomplete="username"></div>
+      <input class="field" id="authPassword" type="password" placeholder="رمز عبور" autocomplete="current-password">
+      <div class="section-actions"><button class="btn btn-primary" id="registerBtn">ساخت حساب</button><button class="btn btn-glass" id="loginBtn">ورود</button></div>
+    </div>
+    <div class="panel profile-tools auth-hidden" id="accountPanel">
+      <div class="avatar-row"><img class="avatar" id="profileAvatar" alt="عکس پروفایل"><div><h2 id="accountName">کاربر MaMaLiX</h2><p class="small-muted" id="accountUsername"></p><label class="btn btn-glass" for="avatarInput">انتخاب عکس پروفایل</label><input id="avatarInput" type="file" accept="image/*" hidden></div></div>
+      <div class="profile-info"><div class="info-box"><span>انواع محصولات در سبد</span><strong id="profileKinds">۰ محصول</strong></div><div class="info-box"><span>تعداد کل در سبد</span><strong id="profileCount">۰ عدد</strong></div><div class="info-box"><span>مجموع سبد خرید</span><strong id="profileTotal">۰ تومان</strong></div><div class="info-box"><span>پشتیبانی</span><strong>MaMaLiMC</strong></div></div>
+      <div class="section-actions"><button class="btn btn-glass" data-go="cart">رفتن به سبد خرید ←</button><button class="btn btn-glass danger" id="logoutBtn">خروج از حساب</button></div>
+    </div>
+    <div class="panel profile-tools auth-hidden" id="ordersPanel"><h2 class="subhead">سفارش‌های من</h2><p class="small-muted">محصولاتی که به سبد خرید اضافه می‌کنی همین‌جا فوراً نمایش داده می‌شوند؛ سفارش‌های ثبت‌شده هم برای نظر دادن در این بخش می‌مانند.</p><div id="ordersList"></div></div>
+    <div class="panel profile-tools"><h2 class="subhead">تنظیمات</h2><label for="themeColor">رنگ اصلی سایت (هر رنگ دلخواه)</label><input id="themeColor" class="settings-color" type="color" value="#9b5cff"><div class="small-muted">از انتخاب‌گر رنگ برای انتخاب طیف کامل رنگ‌ها استفاده کن.</div><div class="info-box"><span>نسخه سایت</span><strong>1.0.1 Released</strong></div><button class="btn btn-glass" id="resetThemeBtn">بازگشت به رنگ پیش‌فرض</button></div>
+    <footer>MaMaLiX — نسخه 1.0.1 Released</footer>
+  </section>
+</main>
+<div class="bottom-nav-wrap"><nav class="bottom-nav" aria-label="ناوبری اصلی"><span class="nav-indicator" id="navIndicator"></span><button class="bottom-link active" data-tab="services" aria-current="page"><span class="nav-icon">⌂</span><span class="nav-label">خدمات</span></button><button class="bottom-link" data-tab="cart"><span class="nav-icon">🛒</span><span class="nav-label">سبد خرید <span id="cartBadge"></span></span></button><button class="bottom-link" data-tab="profile"><span class="nav-icon">♙</span><span class="nav-label">پروفایل</span></button></nav></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const PRODUCTS=[
+{id:"file-light",name:"سایت فایلی سبک بدون لینک",price:30000,icon:"📄",tag:"فایلی · سبک"},
+{id:"file-medium",name:"سایت فایلی نیمه سنگین بدون لینک",price:80000,icon:"📁",tag:"فایلی · نیمه سنگین"},
+{id:"file-heavy",name:"سایت فایلی سنگین بدون لینک",price:160000,icon:"🗂️",tag:"فایلی · سنگین"},
+{id:"link-light",name:"سایت لینکی سبک",price:90000,icon:"🔗",tag:"لینکی · سبک"},
+{id:"link-medium",name:"سایت لینکی نیمه سنگین",price:250000,icon:"🌐",tag:"لینکی · نیمه سنگین"},
+{id:"link-heavy",name:"سایت لینکی سنگین",price:550000,icon:"🚀",tag:"لینکی · سنگین"}
+];
+const STORAGE_KEY="mamalix_cart_v2";
+const PRODUCT_REVIEWS_KEY="mamalix_product_reviews_v1";
+const fmt=n=>new Intl.NumberFormat("fa-IR").format(n);
+const price=n=>fmt(n)+" تومان";
+let cart=loadCart();
+function loadCart(){try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");const clean={};for(const p of PRODUCTS){const q=Number(data[p.id]);if(Number.isInteger(q)&&q>0)clean[p.id]=Math.min(9999,q)}return clean}catch{return {}}}
+function saveCart(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cart))}catch{}}
+function toast(message){const el=document.getElementById("toast");el.textContent=message;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),2300)}
+function totalCount(){return Object.values(cart).reduce((sum,q)=>sum+q,0)}
+function totalPrice(){return PRODUCTS.reduce((sum,p)=>sum+p.price*(cart[p.id]||0),0)}
+function renderProducts(){document.getElementById("servicesList").innerHTML=PRODUCTS.map((p,i)=>`<article class="service-card"><div class="card-top"><span class="service-icon">${p.icon}</span><span class="tag">${p.tag}</span></div><h3>${p.name}</h3><p>ساخت سایت با تحویل ${p.id.startsWith("file")?"فایل مستقیم":"لینک"}، طبق نوع انتخابی شما.</p><div class="card-bottom"><div class="price">${fmt(p.price)} <small>تومان</small></div><button class="btn btn-primary" data-add="${p.id}">＋ افزودن به سبد خرید</button></div><div class="product-reviews"><strong>⭐ نظرات این محصول <span class="small-muted" id="review-count-${p.id}"></span></strong><div class="review-list" id="reviews-${p.id}"></div><div class="review-form"><textarea class="field" data-product-review-input="${p.id}" placeholder="نظر خودت درباره این محصول..."></textarea><button class="btn btn-glass" data-product-review="${p.id}">ثبت نظر (نیازمند ورود به حساب)</button></div></div></article>`).join("");renderProductReviews()}
+function loadProductReviews(){const data=readStore(PRODUCT_REVIEWS_KEY,{});return data&&typeof data==="object"?data:{}}
+function renderProductReviews(){const all=loadProductReviews();for(const p of PRODUCTS){const list=document.getElementById("reviews-"+p.id),count=document.getElementById("review-count-"+p.id);if(!list||!count)continue;const arr=Array.isArray(all[p.id])?all[p.id]:[];count.textContent=`(${fmt(arr.length)})`;list.innerHTML=arr.slice().reverse().map(r=>`<div class="product-review"><strong>${escapeHtml(r.name||r.username||"کاربر")}</strong><span class="small-muted"> · ${escapeHtml(r.date||"")}</span><p>${escapeHtml(r.text||"")}</p></div>`).join("")||'<div class="small-muted">هنوز نظری ثبت نشده؛ اولین نفر باش!</div>';}}
+function addProduct(id){const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const old=cart[id]||0;if(old>=9999){toast("حداکثر تعداد این محصول ۹۹۹۹ عدد است.");return}cart[id]=old+1;saveCart();renderAll();toast("به سبد خرید اضافه شد ✓")}
+function changeQty(id,delta){const current=cart[id]||0;const next=current+delta;if(next<=0)delete cart[id];else if(next<=9999)cart[id]=next;else{toast("حداکثر تعداد هر محصول ۹۹۹۹ عدد است.");return}saveCart();renderAll()}
+function renderCart(){const list=document.getElementById("cartList");const chosen=PRODUCTS.filter(p=>(cart[p.id]||0)>0);list.innerHTML=chosen.map(p=>`<article class="cart-item"><div><div class="item-name">${p.icon} ${p.name}</div><div class="item-price">${price(p.price)} برای هر عدد · جمع این محصول: <strong>${price(p.price*cart[p.id])}</strong></div></div><div class="quantity" aria-label="تغییر تعداد ${p.name}"><button class="qty-btn" data-change="${p.id}" data-delta="-1" aria-label="کم کردن">−</button><span class="qty-number">${fmt(cart[p.id])}</span><button class="qty-btn" data-change="${p.id}" data-delta="1" aria-label="اضافه کردن" ${cart[p.id]>=9999?"disabled":""}>＋</button></div></article>`).join("");const empty=chosen.length===0;document.getElementById("cartEmpty").hidden=!empty;document.getElementById("cartSummary").hidden=empty;document.getElementById("totalPrice").textContent=price(totalPrice())}
+const USERS_KEY="mamalix_users_v1", SESSION_KEY="mamalix_session_v1", ORDERS_KEY="mamalix_orders_v1", THEME_KEY="mamalix_theme_v1";
+const readStore=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}};
+let users=readStore(USERS_KEY,{}), orders=readStore(ORDERS_KEY,[]), currentUser=localStorage.getItem(SESSION_KEY)||"";
+function saveUsers(){try{localStorage.setItem(USERS_KEY,JSON.stringify(users))}catch{toast("فضای ذخیره‌سازی کافی نیست.")}}
+function currentAccount(){return users[currentUser]||null}
+function applyTheme(color){if(!/^#[0-9a-f]{6}$/i.test(color))return;const hex=color.slice(1);const r=parseInt(hex.slice(0,2),16),g=parseInt(hex.slice(2,4),16),b=parseInt(hex.slice(4,6),16);const rgb=`${r},${g},${b}`;const root=document.documentElement;root.style.setProperty("--purple",color);root.style.setProperty("--pink",color);root.style.setProperty("--accent-rgb",rgb);root.style.setProperty("--line",`rgba(${rgb},.28)`);root.style.setProperty("--shadow",`0 22px 70px rgba(${rgb},.13),0 8px 30px #0006`);try{localStorage.setItem(THEME_KEY,color)}catch{};const picker=document.getElementById("themeColor");if(picker)picker.value=color}
+function renderOrders(){const list=document.getElementById("ordersList");const mine=orders.filter(o=>o.username===currentUser);const chosen=PRODUCTS.filter(p=>(cart[p.id]||0)>0);let html="";if(chosen.length){html+=`<article class="order-card"><strong>🛒 سفارش در حال آماده‌سازی · سبد خرید فعلی</strong><p>${chosen.map(p=>`${p.name} × ${fmt(cart[p.id])}`).join("، ")}</p><div class="small-muted">مبلغ فعلی: ${price(totalPrice())}</div><button class="btn btn-glass" data-go="cart" style="margin-top:8px">مدیریت سبد خرید</button><p class="small-muted">با تغییر سبد خرید، این بخش هم خودکار به‌روز می‌شود.</p></article>`}if(mine.length){html+=mine.slice().reverse().map(o=>`<article class="order-card"><strong>سفارش ثبت‌شده ${fmt(o.id)} · ${fmt(o.date)}</strong><p>${o.items.map(i=>`${i.name} × ${fmt(i.qty)}`).join("، ")}</p><div class="small-muted">مبلغ: ${price(o.total)}</div><label for="review-${o.id}">نظر شما درباره این سفارش</label><textarea class="field" id="review-${o.id}" data-review-input="${o.id}" placeholder="نظرت را بنویس...">${escapeHtml(o.review||"")}</textarea><button class="btn btn-primary" data-save-review="${o.id}" style="margin-top:8px">ذخیره نظر</button></article>`).join("")}if(!html)html='<div class="empty">هنوز سفارشی در سبد خرید یا سفارش‌های ثبت‌شده نداری.</div>';list.innerHTML=html}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderProfile(){const kinds=PRODUCTS.filter(p=>(cart[p.id]||0)>0).length;document.getElementById("profileKinds").textContent=fmt(kinds)+" محصول";document.getElementById("profileCount").textContent=fmt(totalCount())+" عدد";document.getElementById("profileTotal").textContent=price(totalPrice());document.getElementById("cartBadge").textContent=totalCount()?"("+fmt(totalCount())+")":"";const a=currentAccount();document.getElementById("authPanel").classList.toggle("auth-hidden",!!a);document.getElementById("accountPanel").classList.toggle("auth-hidden",!a);document.getElementById("ordersPanel").classList.toggle("auth-hidden",!a);if(a){document.getElementById("accountName").textContent=a.name||currentUser;document.getElementById("accountUsername").textContent="@"+currentUser;document.getElementById("profileAvatar").src=a.avatar||defaultAvatar;renderOrders()}}
+const defaultAvatar="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="50" fill="#35204d"/><text x="50" y="64" font-size="48" text-anchor="middle" fill="white">✦</text></svg>');
+function createOrder(){const a=currentAccount();if(!a){toast("برای ثبت سفارش در پروفایل، اول وارد حساب شو.");return}const items=PRODUCTS.filter(p=>(cart[p.id]||0)>0).map(p=>({id:p.id,name:p.name,qty:cart[p.id],price:p.price}));if(!items.length)return;const order={id:Date.now(),username:currentUser,date:new Date().toLocaleDateString("fa-IR"),items,total:totalPrice(),review:""};orders.push(order);try{localStorage.setItem(ORDERS_KEY,JSON.stringify(orders));}catch{toast("ذخیره سفارش ممکن نشد.");return}toast("سفارش در پروفایل ثبت شد ✓");renderProfile()}
 
-    // افکت ملایم حرکت نور با حرکت اشاره‌گر
-    const hero = document.querySelector('.hero');
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      hero.addEventListener('pointermove', (event) => {
-        const rect = hero.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 8;
-        const y = ((event.clientY - rect.top) / rect.height - 0.5) * 8;
-        hero.style.setProperty('--tilt-x', `${y}deg`);
-        hero.style.setProperty('--tilt-y', `${x}deg`);
-      });
-    }
-  </script>
+function renderAll(){renderCart();renderProfile();renderProductReviews()}
+const tabs=[...document.querySelectorAll("[data-tab]")];
+function goTo(tab){if(!["services","cart","profile"].includes(tab))return;document.querySelectorAll(".page").forEach(page=>page.classList.toggle("active",page.dataset.page===tab));tabs.forEach((button,index)=>{const active=button.dataset.tab===tab;button.classList.toggle("active",active);if(active)button.setAttribute("aria-current","page");else button.removeAttribute("aria-current");});const index=tabs.findIndex(button=>button.dataset.tab===tab);document.getElementById("navIndicator").style.transform=`translateX(${-index*100}%)`;window.scrollTo({top:0,behavior:"smooth"});}
+document.addEventListener("click",event=>{const add=event.target.closest("[data-add]");if(add){addProduct(add.dataset.add);return}const change=event.target.closest("[data-change]");if(change){changeQty(change.dataset.change,Number(change.dataset.delta));return}const tab=event.target.closest("[data-tab]");if(tab){goTo(tab.dataset.tab);return}const go=event.target.closest("[data-go]");if(go){goTo(go.dataset.go);return}const productReviewBtn=event.target.closest("[data-product-review]");if(productReviewBtn){if(!currentAccount()){toast("برای ثبت نظر، اول وارد حساب کاربری شو.");goTo("profile");return}const id=productReviewBtn.dataset.productReview,input=document.querySelector(`[data-product-review-input="${id}"]`),value=input?input.value.trim():"";if(!value){toast("اول نظرت رو بنویس.");return}if(value.length>1000){toast("نظر حداکثر ۱۰۰۰ کاراکتر باشد.");return}const all=loadProductReviews();if(!Array.isArray(all[id]))all[id]=[];all[id].push({username:currentUser,name:currentAccount().name||currentUser,date:new Date().toLocaleDateString("fa-IR"),text:value});try{localStorage.setItem(PRODUCT_REVIEWS_KEY,JSON.stringify(all));input.value="";renderProductReviews();toast("نظرت ذخیره شد ✓")}catch{toast("ذخیره نظر انجام نشد.")}return}const reviewBtn=event.target.closest("[data-save-review]");if(reviewBtn){const order=orders.find(o=>String(o.id)===reviewBtn.dataset.saveReview&&o.username===currentUser);const input=document.querySelector(`[data-review-input="${reviewBtn.dataset.saveReview}"]`);if(order&&input){order.review=input.value.trim();try{localStorage.setItem(ORDERS_KEY,JSON.stringify(orders));toast("نظر ذخیره شد ✓")}catch{toast("ذخیره نظر انجام نشد.")}}}});
+document.getElementById("registerBtn").addEventListener("click",()=>{const name=document.getElementById("authName").value.trim(),username=document.getElementById("authEmail").value.trim().toLowerCase(),password=document.getElementById("authPassword").value;if(!name||!username||!password){toast("نام، نام کاربری و رمز را کامل کن.");return}if(!/^[a-z0-9_.-]{3,24}$/.test(username)){toast("نام کاربری انگلیسی و ۳ تا ۲۴ حرف باشد.");return}if(password.length<4){toast("رمز عبور حداقل ۴ کاراکتر باشد.");return}if(users[username]){toast("این نام کاربری قبلاً ثبت شده.");return}users[username]={name,password,avatar:""};saveUsers();currentUser=username;localStorage.setItem(SESSION_KEY,currentUser);renderProfile();toast("حساب ساخته شد ✓")});
+document.getElementById("loginBtn").addEventListener("click",()=>{const username=document.getElementById("authEmail").value.trim().toLowerCase(),password=document.getElementById("authPassword").value;if(users[username]&&users[username].password===password){currentUser=username;localStorage.setItem(SESSION_KEY,currentUser);renderProfile();toast("خوش آمدی ✓")}else toast("نام کاربری یا رمز اشتباه است.")});
+document.getElementById("logoutBtn").addEventListener("click",()=>{currentUser="";localStorage.removeItem(SESSION_KEY);renderProfile();toast("از حساب خارج شدی.")});
+document.getElementById("avatarInput").addEventListener("change",e=>{const file=e.target.files&&e.target.files[0],a=currentAccount();if(!file||!a)return;if(!file.type.startsWith("image/")){toast("یک فایل عکس انتخاب کن.");return}if(file.size>500*1024){toast("حجم عکس باید کمتر از ۵۰۰ کیلوبایت باشد.");return}const reader=new FileReader();reader.onload=()=>{a.avatar=reader.result;saveUsers();renderProfile();toast("عکس پروفایل ذخیره شد ✓")};reader.readAsDataURL(file)});
+document.getElementById("themeColor").addEventListener("input",e=>applyTheme(e.target.value));document.getElementById("resetThemeBtn").addEventListener("click",()=>{applyTheme("#9b5cff");toast("رنگ پیش‌فرض برگشت.")});
+document.getElementById("checkoutLink").addEventListener("click",event=>{if(!currentAccount()){event.preventDefault();toast("برای ثبت سفارش، اول حساب بساز یا وارد شو.");return}createOrder()});
+applyTheme(localStorage.getItem(THEME_KEY)||"#9b5cff");renderProducts();renderAll();
+</script>
 </body>
 </html>
